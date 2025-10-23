@@ -1,0 +1,32 @@
+@mixin min-width($min-width) {
+    @media only screen and (min-width: $min-width) { @content; }
+}
+
+$light-grey: #c5c8d4;
+$dark-grey: #333;
+$brightest: #fff;
+$darkest: #000;
+$bright-green: #47cf73;
+
+$background-primary: $darkest;
+$foreground-primary: $brightest;
+$normal-background: $darkest;
+$normal-foreground: $light-grey;
+$normal-standout: $brightest;
+$normal-subtle: $dark-grey;
+$normal-accent: $bright-green;
+
+body {
+    background-color: $background-primary;
+    color: $foreground-primary;
+    font-family: 'Roboto';
+}
+    
+a {
+    color: $normal-accent;
+}
+
+button {
+    cursor: pointer;
+    border: 1px solid $normal-accent;
+}
