@@ -45,7 +45,7 @@ Clean up handleSubmit switching between POST or PUT
             </label>
             <label>
                 Media
-                <input type="text"></input>
+                <input type="file"></input>
             </label>
             <button @click="handleSubmit">Update</button>
         </div>
@@ -88,7 +88,6 @@ export default defineComponent({
 
             console.log(`ItemUpdate handleSubmit: currentItem.id ${this.currentItem.id}`);
 
-            //if(this.currentItem.id === null || this.currentItem.id === "") {
             if(typeof this.currentItem.id === "undefined") {
                 // Create via POST
                 REQUEST_METHOD = "POST";
@@ -123,13 +122,21 @@ export default defineComponent({
                     throw new Error("Response was not OK");
                 }
 
-                const items: Item[] = await response.json();
+                const result = await response.json();
+                const items = JSON.parse(result);
                 const currentItemID = items[0]?.id;
 
+                console.log("Raw: ", items[0]);
+                console.log("JSON: ", JSON.stringify(items[0]));
                 console.log("Success: ", currentItemID);
+                console.log("Logic: ", typeof currentItemID === 'undefined');
 
                 const storeCurrentItem = useCurrentItemStore()
                 storeCurrentItem.setItem(this.currentItem);
+
+                if(typeof currentItemID === 'undefined') {
+                    router.push('/');
+                }
 
                 router.push(`/item/${currentItemID}`);
             } catch(error) {
