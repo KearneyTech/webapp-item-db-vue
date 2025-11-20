@@ -69,7 +69,7 @@ export default defineComponent({
             subtitle: '',
             description: '',
             currentItem: {} as Item,
-            file: {name: "placeholder"} as File
+            file: null as File | null
         };
     },
     mounted() {
@@ -109,7 +109,7 @@ export default defineComponent({
                 `ItemUpdate handleSubmit: currentItem.id ${this.currentItem.id}`
             );
 
-            if(this.file.name !== "placeholder") {
+            if(this.file !== null) {
                 form.append('file', this.file);
                 console.log(`ItemUpdate handleSubmit: including file`);
             }
